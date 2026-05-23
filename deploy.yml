@@ -1,0 +1,27 @@
+---
+ - name: Deploy Python app to aws ec2
+   hosts: aws_server
+   become: yes
+   tasks:
+     - name: Ensure Docker is installed
+       apt:
+         name: docker.io
+         state: present
+         update_cache: yes
+     - name: Pull latest docker Image
+       docker_image: 
+         name: "{{ docker_user }}/python-pipeline-app"
+         source: pull
+     - name: Stop existing contiainer
+       dokcer_container:
+         name: my-python-app
+         state: absent
+     - name: run new contianer 
+       docker_container:
+          name: my-python-app
+          image: "{{ docker_username }}/python-pipeline-app"
+          state: started 
+          port:
+            - "80:80"
+
+
