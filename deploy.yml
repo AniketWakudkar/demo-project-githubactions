@@ -13,7 +13,7 @@
          name: "{{ docker_user }}/python-pipeline-app"
          source: pull
      - name: Stop existing contiainer
-       dokcer_container:
+       docker_container:
          name: my-python-app
          state: absent
      - name: run new contianer 
